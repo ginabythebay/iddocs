@@ -1,0 +1,212 @@
+# Fixture that can be used to put states into empty db.
+#
+# If you need to empty the db, do these things:
+# $ rm db.sqlite3
+# $ rm docs/migrations/0*
+# $ make makemigrations
+# $ make migrate
+# $ make createsuperuser
+#
+# To load this file:
+# $ python manage.py loaddata --app docs states.yaml
+#
+- model: docs.location
+  pk: al
+  fields:
+    name: Alabama
+- model: docs.location
+  pk: ak
+  fields:
+    name: Alaska
+- model: docs.location
+  pk: az
+  fields:
+    name: Arizona
+- model: docs.location
+  pk: ar
+  fields:
+    name: Arkansas
+- model: docs.location
+  pk: ca
+  fields:
+    name: California
+- model: docs.location
+  pk: co
+  fields:
+    name: Colorado
+- model: docs.location
+  pk: ct
+  fields:
+    name: Connecticut
+- model: docs.location
+  pk: de
+  fields:
+    name: Delaware
+- model: docs.location
+  pk: fl
+  fields:
+    name: Florida
+- model: docs.location
+  pk: ga
+  fields:
+    name: Georgia
+- model: docs.location
+  pk: hi
+  fields:
+    name: Hawaii
+- model: docs.location
+  pk: id
+  fields:
+    name: Idaho
+- model: docs.location
+  pk: il
+  fields:
+    name: Illinois
+- model: docs.location
+  pk: in
+  fields:
+    name: Indiana
+- model: docs.location
+  pk: ia
+  fields:
+    name: Iowa
+- model: docs.location
+  pk: ks
+  fields:
+    name: Kansas
+- model: docs.location
+  pk: ky
+  fields:
+    name: Kentucky
+- model: docs.location
+  pk: la
+  fields:
+    name: Louisiana
+- model: docs.location
+  pk: me
+  fields:
+    name: Maine
+- model: docs.location
+  pk: md
+  fields:
+    name: Maryland
+- model: docs.location
+  pk: ma
+  fields:
+    name: Massachusetts
+- model: docs.location
+  pk: mi
+  fields:
+    name: Michigan
+- model: docs.location
+  pk: mn
+  fields:
+    name: Minnesota
+- model: docs.location
+  pk: ms
+  fields:
+    name: Mississippi
+- model: docs.location
+  pk: mo
+  fields:
+    name: Missouri
+- model: docs.location
+  pk: mt
+  fields:
+    name: Montana
+- model: docs.location
+  pk: ne
+  fields:
+    name: Nebraska
+- model: docs.location
+  pk: nv
+  fields:
+    name: Nevada
+- model: docs.location
+  pk: nh
+  fields:
+    name: New Hampshire
+- model: docs.location
+  pk: nj
+  fields:
+    name: New Jersey
+- model: docs.location
+  pk: nm
+  fields:
+    name: New Mexico
+- model: docs.location
+  pk: ny
+  fields:
+    name: New York
+- model: docs.location
+  pk: nc
+  fields:
+    name: North Carolina
+- model: docs.location
+  pk: nd
+  fields:
+    name: North Dakota
+- model: docs.location
+  pk: oh
+  fields:
+    name: Ohio
+- model: docs.location
+  pk: ok
+  fields:
+    name: Oklahoma
+- model: docs.location
+  pk: or
+  fields:
+    name: Oregon
+- model: docs.location
+  pk: pa
+  fields:
+    name: Pennsylvania
+- model: docs.location
+  pk: ri
+  fields:
+    name: Rhode Island
+- model: docs.location
+  pk: sc
+  fields:
+    name: South Carolina
+- model: docs.location
+  pk: sd
+  fields:
+    name: South Dakota
+- model: docs.location
+  pk: tn
+  fields:
+    name: Tennessee
+- model: docs.location
+  pk: tx
+  fields:
+    name: Texas
+- model: docs.location
+  pk: ut
+  fields:
+    name: Utah
+- model: docs.location
+  pk: vt
+  fields:
+    name: Vermont
+- model: docs.location
+  pk: va
+  fields:
+    name: Virginia
+- model: docs.location
+  pk: wa
+  fields:
+    name: Washington
+- model: docs.location
+  pk: wv
+  fields:
+    name: West Virginia
+- model: docs.location
+  pk: wi
+  fields:
+    name: Wisconsin
+- model: docs.location
+  pk: wy
+  fields:
+    name: Wyoming
