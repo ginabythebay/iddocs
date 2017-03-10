@@ -1,0 +1,11 @@
+<h1>Choose a federal document</h1>
+
+{% if docs %}
+<ul>
+    {% for d in docs %}
+    <li><a href="{% url 'docs:fed_detail' d.name %}">{{ d.name }}</a></li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No articles are available.</p>
+{% endif %}
