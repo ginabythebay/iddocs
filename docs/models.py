@@ -18,7 +18,7 @@ class Location(models.Model):
 class BirthCertificate(models.Model):
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    article = MarkdownxField()
+    article = MarkdownxField(help_text='Markdown please')
     location = models.OneToOneField(
         Location,
         on_delete=models.CASCADE,
