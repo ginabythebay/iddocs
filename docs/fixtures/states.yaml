@@ -1,11 +1,7 @@
 # Fixture that can be used to put states into empty db.
 #
-# If you need to empty the db, do these things:
-# $ rm db.sqlite3
-# $ rm docs/migrations/0*
-# $ make makemigrations
-# $ make migrate
-# $ make createsuperuser
+# If you need to empty the db, do:
+# $ ./cleardb
 #
 # To load this file:
 # $ python manage.py loaddata --app docs states.yaml

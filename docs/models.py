@@ -18,7 +18,6 @@ class Location(models.Model):
 class BirthCertificate(models.Model):
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    location = models.CharField(primary_key=True, max_length=2)
     article = MarkdownxField()
     location = models.OneToOneField(
         Location,
@@ -31,5 +30,5 @@ class BirthCertificate(models.Model):
         return markdownify(self.article)
 
     def __str__(self):
-        return self.location
+        return self.location.name
 
