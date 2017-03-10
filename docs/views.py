@@ -9,8 +9,10 @@ def index(request):
 class BCDetailView(generic.DetailView):
     model = BirthCertificate
     template_name = 'docs/bc_detail.html'
+    context_object_name = 'bc'
 
 
 class CODetailView(generic.DetailView):
     model = CourtOrder
     template_name = 'docs/co_detail.html'
+    context_object_name = 'co'
