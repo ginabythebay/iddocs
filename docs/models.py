@@ -51,3 +51,18 @@ class CourtOrder(models.Model):
     def __str__(self):
         return self.location.name
 
+
+@python_2_unicode_compatible
+class FederalDoc(models.Model):
+    added = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    name = models.CharField(primary_key=True, max_length=255)
+    article = MarkdownxField()
+
+    @property
+    def formatted_article(self):
+        return markdownify(self.article)
+
+    def __str__(self):
+        return self.name
+

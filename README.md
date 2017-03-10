@@ -3,7 +3,6 @@
 
 A work in progress
 
-
 ## Things to solve for deployment
 
 * Read (this)[https://www.djangorocks.com/tutorials/setting-up-your-server-to-run-django.html]
