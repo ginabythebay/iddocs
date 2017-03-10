@@ -3,6 +3,16 @@
 
 A work in progress
 
+## Notes
+
+## Choosing a state
+
+Clickable maps sound nice.  Some possible solutions:
+
+* https://newsignature.github.io/us-map/
+* https://www.amcharts.com/download/ (costs money)
+* http://createaclickablemap.com/ (but it depends on their server :()
+
 ## Things to solve for deployment
 
 * Read (this)[https://www.djangorocks.com/tutorials/setting-up-your-server-to-run-django.html]
