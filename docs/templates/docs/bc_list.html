@@ -1,0 +1,11 @@
+<h1>Choose Location Where the Birth Certificate Was Issued</h1>
+
+{% if list %}
+<ul>
+    {% for bc in list %}
+    <li><a href="{% url 'docs:bc_detail' bc.location.abbrev %}">{{ bc.location.name }}</a></li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No articles are available.</p>
+{% endif %}

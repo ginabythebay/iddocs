@@ -6,6 +6,15 @@ def index(request):
     return HttpResponse("Hello, world. You're at the docs index.")
 
 
+class BCListView(generic.ListView):
+    template_name = 'docs/bc_list.html'
+    context_object_name = 'list'
+
+    def get_queryset(self):
+        """ Return the documents ordered by location name"""
+        return BirthCertificate.objects.order_by('location')
+
+
 class BCDetailView(generic.DetailView):
     model = BirthCertificate
     template_name = 'docs/bc_detail.html'
@@ -17,7 +26,7 @@ class COListView(generic.ListView):
     context_object_name = 'list'
 
     def get_queryset(self):
-        """ Return the documents ordered by name"""
+        """ Return the documents ordered by location name"""
         return CourtOrder.objects.order_by('location')
 
 
