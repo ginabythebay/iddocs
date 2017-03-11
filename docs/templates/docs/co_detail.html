@@ -1,5 +1,10 @@
+{% extends "docs/base.html" %}
 
-<h1>Getting a Court Order in {{ co.location.name }}</h1>
+{% block title %}ID Docs: Obtaining a Court Order in {{ co.location.name }}{% endblock %}
+
+{% block content %}
+<h1>Obtaining a Court Order in {{ co.location.name }}</h1>
 
 {{ co.formatted_article|safe }}
+{% endblock %}
 

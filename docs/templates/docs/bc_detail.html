@@ -1,5 +1,10 @@
+{% extends "docs/base.html" %}
 
-<h1>Updating Your Birth Certificate From {{ bc.name }}</h1>
+{% block title %}ID Docs: Birth Certificates Issued in {{ bc.name }} {% endblock %}
+
+{% block content %}
+<h1>Birth Certificates Issued in {{ bc.location.name }}</h1>
 
 {{ bc.formatted_article|safe }}
+{% endblock %}
 

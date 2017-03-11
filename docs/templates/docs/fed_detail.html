@@ -1,4 +1,9 @@
+{% extends "docs/base.html" %}
 
-<h1>Updating your {{ fed.location.name }}</h1>
+{% block title %}ID Docs: Updating {{ fed.name }}{% endblock %}
+
+{% block content %}
+<h1>Updating {{ fed.name }}</h1>
 
 {{ fed.formatted_article|safe }}
+{% endblock %}

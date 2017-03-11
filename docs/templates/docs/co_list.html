@@ -1,5 +1,10 @@
+{% extends "docs/base.html" %}
+
+{% block title %}ID Docs: Court Orders by State{% endblock %}
+
 <h1>Choose Location Where you Need a Court Order</h1>
 
+{% block content %}
 {% if list %}
 <ul>
     {% for co in list %}
@@ -9,3 +14,4 @@
 {% else %}
 <p>No articles are available.</p>
 {% endif %}
+{% endblock %}

@@ -1,5 +1,10 @@
+{% extends "docs/base.html" %}
+
+{% block title %}ID Docs: Birth Certificates by State{% endblock %}
+
 <h1>Choose Location Where the Birth Certificate Was Issued</h1>
 
+{% block content %}
 {% if list %}
 <ul>
     {% for bc in list %}
@@ -9,3 +14,4 @@
 {% else %}
 <p>No articles are available.</p>
 {% endif %}
+{% endblock %}
