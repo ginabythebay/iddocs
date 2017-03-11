@@ -14,6 +14,9 @@ class Location(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['name']
+
 @python_2_unicode_compatible
 class BirthCertificate(models.Model):
     added = models.DateTimeField(auto_now_add=True)
@@ -65,4 +68,3 @@ class FederalDoc(models.Model):
 
     def __str__(self):
         return self.name
-

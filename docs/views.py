@@ -12,6 +12,15 @@ class BCDetailView(generic.DetailView):
     context_object_name = 'bc'
 
 
+class COListView(generic.ListView):
+    template_name = 'docs/co_list.html'
+    context_object_name = 'list'
+
+    def get_queryset(self):
+        """ Return the documents ordered by name"""
+        return CourtOrder.objects.order_by('location')
+
+
 class CODetailView(generic.DetailView):
     model = CourtOrder
     template_name = 'docs/co_detail.html'

@@ -1,0 +1,11 @@
+<h1>Choose Location Where you Need a Court Order</h1>
+
+{% if list %}
+<ul>
+    {% for co in list %}
+    <li><a href="{% url 'docs:co_detail' co.location.abbrev %}">{{ co.location.name }}</a></li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No articles are available.</p>
+{% endif %}

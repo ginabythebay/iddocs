@@ -9,6 +9,8 @@ urlpatterns = [
     url(r'^birth_certificates/(?P<pk>[^/]+)/$', views.BCDetailView.as_view(), name='bc_detail'),
 
     # ex: /court_orders/ca/
+    # ex: /court_orders/
+    url(r'^court_orders/$', views.COListView.as_view(), name='co_list'),
     url(r'^court_orders/(?P<pk>[^/]+)/$', views.CODetailView.as_view(), name='co_detail'),
 
     # ex: /fed_docs/
