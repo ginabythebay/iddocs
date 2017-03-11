@@ -1,9 +1,11 @@
+from django.shortcuts import render
 from django.views import generic
 
 from .models import BirthCertificate, CourtOrder, FederalDoc
 
+
 def index(request):
-    return HttpResponse("Hello, world. You're at the docs index.")
+    return render(request, 'docs/index.html')
 
 
 class BCListView(generic.ListView):
