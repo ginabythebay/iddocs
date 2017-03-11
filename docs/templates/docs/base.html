@@ -23,9 +23,9 @@
 
 		<nav>
 		    <a href="/docs/">Home</a>
-		    <a href="/docs/birth_certificates/">Birth Certificates</a>
-		    <a href="/docs/fed_docs/">Federal</a>
-		    <a href="/docs/court_orders/">Court Orders</a>
+		    <a href="/docs/birth_certificates/" {% block bc_selected %}{% endblock %}>Birth Certificates</a>
+		    <a href="/docs/fed_docs/" {% block fed_selected %}{% endblock %}>Federal</a>
+		    <a href="/docs/court_orders/" {% block co_selected %}{% endblock %}>Court Orders</a>
 		</nav>
 	    </div>
 
