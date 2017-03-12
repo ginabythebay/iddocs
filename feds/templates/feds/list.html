@@ -1,14 +1,14 @@
-{% extends "docs/fed_base.html" %}
+{% extends "feds/base.html" %}
 
 {% block title %}ID Docs: Federal{% endblock %}
 
 <h1>Choose a federal document</h1>
 
 {% block content %}
-{% if docs %}
+{% if list %}
 <ul>
-    {% for d in docs %}
-    <li><a href="{% url 'docs:fed_detail' d.name %}">{{ d.name }}</a></li>
+    {% for d in list %}
+    <li><a href="{% url 'feds:detail' d.name %}">{{ d.name }}</a></li>
     {% endfor %}
 </ul>
 {% else %}

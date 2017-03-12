@@ -1,4 +1,4 @@
-{% extends "docs/co_base.html" %}
+{% extends "cos/base.html" %}
 
 {% block title %}ID Docs: Court Orders by State{% endblock %}
 
@@ -8,7 +8,7 @@
 {% if list %}
 <ul>
     {% for co in list %}
-    <li><a href="{% url 'docs:co_detail' co.location.abbrev %}">{{ co.location.name }}</a></li>
+    <li><a href="{% url 'cos:detail' co.location.abbrev %}">{{ co.location.name }}</a></li>
     {% endfor %}
 </ul>
 {% else %}

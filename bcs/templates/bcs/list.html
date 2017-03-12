@@ -1,4 +1,4 @@
-{% extends "docs/bc_base.html" %}
+{% extends "bcs/base.html" %}
 
 {% block title %}ID Docs: Birth Certificates by State{% endblock %}
 
@@ -8,7 +8,7 @@
 {% if list %}
 <ul>
     {% for bc in list %}
-    <li><a href="{% url 'docs:bc_detail' bc.location.abbrev %}">{{ bc.location.name }}</a></li>
+    <li><a href="{% url 'bcs:detail' bc.location.abbrev %}">{{ bc.location.name }}</a></li>
     {% endfor %}
 </ul>
 {% else %}
