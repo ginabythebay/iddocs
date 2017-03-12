@@ -14,5 +14,5 @@ class ListView(generic.ListView):
 
 class DetailView(generic.DetailView):
     model = CourtOrder
-    template_name = 'cos/co_detail.html'
+    template_name = 'cos/detail.html'
     context_object_name = 'co'
