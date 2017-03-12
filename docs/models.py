@@ -6,16 +6,7 @@ from django.utils.encoding import python_2_unicode_compatible
 from markdownx.models import MarkdownxField
 from markdownx.utils import markdownify
 
-@python_2_unicode_compatible
-class Location(models.Model):
-    abbrev = models.CharField(primary_key=True, max_length=2)
-    name = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        ordering = ['name']
+from locations.models import Location
 
 @python_2_unicode_compatible
 class BirthCertificate(models.Model):

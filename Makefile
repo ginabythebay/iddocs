@@ -1,6 +1,5 @@
 
 PYTHON=venv/bin/python
-APPS=docs
 
 .PHONY: createsuperuser freeze makemigrations migrate serve shell test
 
@@ -11,7 +10,7 @@ freeze: venv
 	pip freeze > requirements.txt
 
 makemigrations: venv
-	$(PYTHON) manage.py makemigrations $(APPS)
+	$(PYTHON) manage.py makemigrations
 
 migrate: venv
 	$(PYTHON) manage.py migrate
@@ -23,7 +22,7 @@ shell: venv
 	$(PYTHON) manage.py shell
 
 test: venv
-	$(PYTHON) manage.py test $(APPS)
+	$(PYTHON) manage.py test
 
 venv/bin/activate: requirements.txt
 	test -d venv || virtualenv venv

@@ -4,205 +4,205 @@
 # $ ./cleardb
 #
 # To load this file:
-# $ python manage.py loaddata --app docs states.yaml
+# $ python manage.py loaddata --app locations states.yaml
 #
-- model: docs.location
+- model: locations.location
   pk: al
   fields:
     name: Alabama
-- model: docs.location
+- model: locations.location
   pk: ak
   fields:
     name: Alaska
-- model: docs.location
+- model: locations.location
   pk: az
   fields:
     name: Arizona
-- model: docs.location
+- model: locations.location
   pk: ar
   fields:
     name: Arkansas
-- model: docs.location
+- model: locations.location
   pk: ca
   fields:
     name: California
-- model: docs.location
+- model: locations.location
   pk: co
   fields:
     name: Colorado
-- model: docs.location
+- model: locations.location
   pk: ct
   fields:
     name: Connecticut
-- model: docs.location
+- model: locations.location
   pk: de
   fields:
     name: Delaware
-- model: docs.location
+- model: locations.location
   pk: fl
   fields:
     name: Florida
-- model: docs.location
+- model: locations.location
   pk: ga
   fields:
     name: Georgia
-- model: docs.location
+- model: locations.location
   pk: hi
   fields:
     name: Hawaii
-- model: docs.location
+- model: locations.location
   pk: id
   fields:
     name: Idaho
-- model: docs.location
+- model: locations.location
   pk: il
   fields:
     name: Illinois
-- model: docs.location
+- model: locations.location
   pk: in
   fields:
     name: Indiana
-- model: docs.location
+- model: locations.location
   pk: ia
   fields:
     name: Iowa
-- model: docs.location
+- model: locations.location
   pk: ks
   fields:
     name: Kansas
-- model: docs.location
+- model: locations.location
   pk: ky
   fields:
     name: Kentucky
-- model: docs.location
+- model: locations.location
   pk: la
   fields:
     name: Louisiana
-- model: docs.location
+- model: locations.location
   pk: me
   fields:
     name: Maine
-- model: docs.location
+- model: locations.location
   pk: md
   fields:
     name: Maryland
-- model: docs.location
+- model: locations.location
   pk: ma
   fields:
     name: Massachusetts
-- model: docs.location
+- model: locations.location
   pk: mi
   fields:
     name: Michigan
-- model: docs.location
+- model: locations.location
   pk: mn
   fields:
     name: Minnesota
-- model: docs.location
+- model: locations.location
   pk: ms
   fields:
     name: Mississippi
-- model: docs.location
+- model: locations.location
   pk: mo
   fields:
     name: Missouri
-- model: docs.location
+- model: locations.location
   pk: mt
   fields:
     name: Montana
-- model: docs.location
+- model: locations.location
   pk: ne
   fields:
     name: Nebraska
-- model: docs.location
+- model: locations.location
   pk: nv
   fields:
     name: Nevada
-- model: docs.location
+- model: locations.location
   pk: nh
   fields:
     name: New Hampshire
-- model: docs.location
+- model: locations.location
   pk: nj
   fields:
     name: New Jersey
-- model: docs.location
+- model: locations.location
   pk: nm
   fields:
     name: New Mexico
-- model: docs.location
+- model: locations.location
   pk: ny
   fields:
     name: New York
-- model: docs.location
+- model: locations.location
   pk: nc
   fields:
     name: North Carolina
-- model: docs.location
+- model: locations.location
   pk: nd
   fields:
     name: North Dakota
-- model: docs.location
+- model: locations.location
   pk: oh
   fields:
     name: Ohio
-- model: docs.location
+- model: locations.location
   pk: ok
   fields:
     name: Oklahoma
-- model: docs.location
+- model: locations.location
   pk: or
   fields:
     name: Oregon
-- model: docs.location
+- model: locations.location
   pk: pa
   fields:
     name: Pennsylvania
-- model: docs.location
+- model: locations.location
   pk: ri
   fields:
     name: Rhode Island
-- model: docs.location
+- model: locations.location
   pk: sc
   fields:
     name: South Carolina
-- model: docs.location
+- model: locations.location
   pk: sd
   fields:
     name: South Dakota
-- model: docs.location
+- model: locations.location
   pk: tn
   fields:
     name: Tennessee
-- model: docs.location
+- model: locations.location
   pk: tx
   fields:
     name: Texas
-- model: docs.location
+- model: locations.location
   pk: ut
   fields:
     name: Utah
-- model: docs.location
+- model: locations.location
   pk: vt
   fields:
     name: Vermont
-- model: docs.location
+- model: locations.location
   pk: va
   fields:
     name: Virginia
-- model: docs.location
+- model: locations.location
   pk: wa
   fields:
     name: Washington
-- model: docs.location
+- model: locations.location
   pk: wv
   fields:
     name: West Virginia
-- model: docs.location
+- model: locations.location
   pk: wi
   fields:
     name: Wisconsin
-- model: docs.location
+- model: locations.location
   pk: wy
   fields:
     name: Wyoming
