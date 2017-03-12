@@ -22,7 +22,7 @@
 		<h1><a href="#">ID Docs<span>logo</span></a></h1>
 
 		<nav>
-		    <a href="/docs/">Home</a>
+		    <a href="{% url 'docs:index' %}">Home</a>
 		    <a href="{% url 'cos:list' %}" {% block co_selected %}{% endblock %}>Court Orders</a>
 		    <a href="{% url 'feds:list' %}" {% block fed_selected %}{% endblock %}>Federal</a>
 		    <a href="{% url 'bcs:list' %}" {% block bc_selected %}{% endblock %}>Birth Certificates</a>
