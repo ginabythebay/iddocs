@@ -15,6 +15,7 @@ Clickable maps sound nice.  Some possible solutions:
 
 ## Things to solve for deployment
 
+* backups.  See (this)[https://github.com/django-dbbackup/django-dbbackup] and (this)[https://github.com/nathan-osman/django-archive/blob/master/docs/settings.rst]
 * Read (this)[https://www.djangorocks.com/tutorials/setting-up-your-server-to-run-django.html]
 * set STATIC_ROOT in settings.py, then run `python manage.py collectstatic`.  More (here)[https://docs.djangoproject.com/en/1.10/howto/static-files/].
 * figure out the db we will use
