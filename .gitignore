@@ -1,3 +1,6 @@
+public/
+tmp/
+
 
 *~
 *.sqlite3
