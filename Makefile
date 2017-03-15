@@ -1,13 +1,16 @@
 
 PYTHON=venv/bin/python
 
-.PHONY: createsuperuser freeze makemigrations migrate serve shell test
+.PHONY: createsuperuser freeze genkey makemigrations migrate serve shell test
 
 createsuperuser: venv
 	$(PYTHON) manage.py createsuperuser
 
 freeze: venv
 	pip freeze > requirements.txt
+
+genkey: venv
+	@$(PYTHON) -c "import string,random; uni=string.ascii_letters+string.digits+string.punctuation; print repr(''.join([random.SystemRandom().choice(uni) for i in range(random.randint(45,50))]))"
 
 makemigrations: venv
 	$(PYTHON) manage.py makemigrations

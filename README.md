@@ -3,7 +3,41 @@
 
 A work in progress
 
-## Notes
+## Getting Started
+
+### Set up tools
+
+```
+git clone git@github.com:ginabythebay/iddocs.git
+cd iddocs
+sudo pacman -S python2 python2-virtualenv python2-pip
+virtualenv2 venv
+. ./venv/bin/activate
+
+pip install -r requirements.txt 
+
+```
+
+### Create .env file
+
+
+```
+cat << EOF > .env
+DJANGO_DEV="TRUE"
+ALLOWED_HOSTS=""
+SECRET_KEY=$(make genkey)
+EOF
+```
+
+### Set up Db and start local server
+
+```
+make migrate
+make createsuperuser
+make serve
+```
+
+
 
 ## Choosing a state
 
