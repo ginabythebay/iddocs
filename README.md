@@ -31,6 +31,19 @@ STATIC_ROOT="somepath"
 EOF
 ```
 
+### Create mysql configuration file
+
+```
+cat << EOF > mysite/my.conf
+[client]
+database = yourdb
+user = yourdbuser
+password = yourdbpwd
+EOF
+```
+
+Edit the entries above
+
 ### Set up Db and start local server
 
 ```

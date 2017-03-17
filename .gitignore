@@ -3,6 +3,7 @@ public/
 tmp/
 .idea/
 
+my.conf
 
 *~
 *.sqlite3
