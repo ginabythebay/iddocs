@@ -26,6 +26,8 @@ cat << EOF > .env
 DJANGO_DEV="TRUE"
 ALLOWED_HOSTS=""
 SECRET_KEY=$(make genkey)
+BUILD_DIR="somepath"
+STATIC_ROOT="somepath"
 EOF
 ```
 
