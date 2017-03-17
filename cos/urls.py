@@ -7,5 +7,5 @@ urlpatterns = [
     # ex: /
     url(r'^$', views.ListView.as_view(), name='list'),
     # ex: /ca/
-    url(r'^court_orders/(?P<pk>[^/]+)/$', views.DetailView.as_view(), name='detail'),
+    url(r'^(?P<pk>[^/]+)/$', views.DetailView.as_view(), name='detail'),
 ]

@@ -36,12 +36,33 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'markdownx',
+    'bakery',
     'locations',
     'bcs',
     'cos',
     'feds',
     'docs',
 ]
+
+#
+# Begin bakery config
+# 
+BUILD_DIR = os.getenv("BUILD_DIR")
+
+BAKERY_VIEWS = (
+    'bcs.views.ListView',
+    'bcs.views.DetailView',
+    'cos.views.ListView',
+    'cos.views.DetailView',
+    'feds.views.ListView',
+    'feds.views.DetailView',
+    'docs.views.IndexView',
+)
+#
+# end bakery config
+#
+
+STATIC_ROOT = os.environ['STATIC_ROOT']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

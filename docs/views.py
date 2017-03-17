@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from bakery.views import BuildableTemplateView
 
+class IndexView(BuildableTemplateView):
+    template_name = 'docs/index.html'
+    build_path = 'index.html'
 
-def index(request):
-    return render(request, 'docs/index.html')
