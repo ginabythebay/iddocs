@@ -36,6 +36,8 @@ EOF
 ```
 cat << EOF > mysite/my.conf
 [client]
+default-character-set = utf8
+host = yourmysqlhost
 database = yourdb
 user = yourdbuser
 password = yourdbpwd
