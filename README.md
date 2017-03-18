@@ -51,10 +51,10 @@ Edit the entries above
 ```
 make migrate
 make createsuperuser
+python manage.py loaddata locations/fixtures/states.yaml
+python manage.py collectstatic
 make serve
 ```
-
-
 
 ## Choosing a state
 
