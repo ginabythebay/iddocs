@@ -27,7 +27,12 @@ DJANGO_DEV="TRUE"
 ALLOWED_HOSTS=""
 SECRET_KEY=$(make genkey)
 BUILD_DIR="somepath"
+MYSQL_USER="someuser"
+MYSQL_PWD="somepwd"
+MYSQL_DB="somedbname"
+MYSQL_HOST="somehost"
 STATIC_ROOT="somepath"
+BACKUP_ROOT="somedir"
 EOF
 ```
 

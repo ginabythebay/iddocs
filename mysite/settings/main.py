@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'markdownx',
+    'dbbackup',
     'bakery',
     'locations',
     'bcs',
@@ -65,6 +66,11 @@ BAKERY_VIEWS = (
 #
 # end bakery config
 #
+
+DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DBBACKUP_STORAGE_OPTIONS = {
+    'location': os.environ['BACKUP_ROOT']
+}
 
 STATIC_ROOT = os.environ['STATIC_ROOT']
 
@@ -105,9 +111,12 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.getenv("MYSQL_DB"),
+        'USER': os.getenv("MYSQL_USER"),
+        'PASSWORD': os.getenv("MYSQL_PWD"),
+        'HOST': os.getenv("MYSQL_HOST"),
         'OPTIONS': {
             'read_default_file': os.path.join(BASE_DIR, 'my.conf'),
-            'read_default_group': 'iddocssite',
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
         },
     }
