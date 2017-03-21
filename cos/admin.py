@@ -4,4 +4,7 @@ from markdownx.admin import MarkdownxModelAdmin
 
 from .models import CourtOrder
 
-admin.site.register(CourtOrder, MarkdownxModelAdmin)
+class CourtOrderAdmin(MarkdownxModelAdmin):
+    fields = ['location', 'article']
+
+admin.site.register(CourtOrder, CourtOrderAdmin)

@@ -4,4 +4,7 @@ from markdownx.admin import MarkdownxModelAdmin
 
 from .models import BirthCertificate
 
-admin.site.register(BirthCertificate, MarkdownxModelAdmin)
+class BirthCertificateAdmin(MarkdownxModelAdmin):
+    fields = ['location', 'article']
+
+admin.site.register(BirthCertificate, BirthCertificateAdmin)
