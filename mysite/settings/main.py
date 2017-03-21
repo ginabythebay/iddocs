@@ -51,7 +51,7 @@ INSTALLED_APPS = [
 
 #
 # Begin bakery config
-# 
+#
 BUILD_DIR = os.getenv("BUILD_DIR")
 
 BAKERY_VIEWS = (
@@ -107,7 +107,6 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -121,6 +120,12 @@ DATABASES = {
         },
     }
 }
+test_sqlite3 = os.environ.get('TEST_SQLITE3', False)
+if 'test' in sys.argv and test_sqlite3:
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'testdb'
+    }
 
 
 # Password validation
