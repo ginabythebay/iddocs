@@ -89,6 +89,7 @@ def prod(version):
         virtualenv('pip install -r requirements.txt')
         manage('migrate')
         manage('collectstatic --noinput')
+        manage('test')
         manage('build')
         run('touch tmp/restart')
 
