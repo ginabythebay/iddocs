@@ -35,7 +35,31 @@ def manage(subcommand):
     virtualenv(cmd)
 
 @hosts(env.HOST)
-def stage():
+def get_artifact(version, name):
+    run('mkdir -p ~/releases/%s' % version)
+    with cd('~/releases/%s' % version):
+        run('rm -f %s' % name)
+        run('wget "https://github.com/ginabythebay/iddocs/releases/download/%s/%s"' % (version, name))
+
+
+@hosts(env.HOST)
+def fetch(version):
+    get_artifact(version, 'source.tar.bz2')
+    get_artifact(version, 'source.sha512')
+    with cd('~/releases/%s' % version):
+        run('shasum -a 512 -c source.sha512')
+
+
+def extract(version):
+    """Extracts the versioned file into the current directory.  Assumes
+       fetch has already been run."""
+    run('tar xfj ~/releases/%s/source.tar.bz2' % version)
+
+
+@hosts(env.HOST)
+def stage(version):
+    fetch(version)
+
     snapshot = os.path.join(env.STAGING['root'], 'backups', 'prodsnapshot.dump')
     try:
         os.remove(snapshot)
@@ -46,7 +70,7 @@ def stage():
         manage('dbbackup --output-path %s' % (snapshot))
 
     with cd(env.STAGING['root']):
-        run('git pull')
+        extract(version)
         virtualenv('pip install -r requirements.txt')
         manage('flush --noinput')
         manage('migrate')
@@ -57,10 +81,10 @@ def stage():
 
 
 @hosts(env.HOST)
-def prod():
+def prod(version):
     with cd(env.PROD['root']):
         manage('dbbackup')
-        run('git pull')
+        extract(version)
         virtualenv('pip install -r requirements.txt')
         manage('migrate')
         manage('collectstatic --noinput')
