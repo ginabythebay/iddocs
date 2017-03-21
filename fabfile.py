@@ -76,6 +76,7 @@ def stage(version):
         manage('migrate')
         manage('collectstatic --noinput')
         manage('dbrestore --noinput --input-path %s' % (snapshot))
+        manage('test')
         manage('build')
         run('touch tmp/restart')
 
