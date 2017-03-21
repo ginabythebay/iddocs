@@ -8,7 +8,7 @@
 {% if list %}
 <ul>
     {% for d in list %}
-    <li><a href="{% url 'feds:detail' d.id %}">{{ d.name }}</a></li>
+    <li><a href="{% url 'feds:detail' d.pk %}">{{ d.name }}</a></li>
     {% endfor %}
 </ul>
 {% else %}
