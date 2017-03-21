@@ -13,7 +13,7 @@ from locations.models import Location
 class FederalDoc(models.Model):
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    name = models.CharField(primary_key=True, max_length=255)
+    name = models.CharField(unique=True, max_length=255)
     article = MarkdownxField()
 
     @property
