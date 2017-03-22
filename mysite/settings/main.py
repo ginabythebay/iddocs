@@ -73,6 +73,7 @@ DBBACKUP_STORAGE_OPTIONS = {
 }
 
 STATIC_ROOT = os.environ['STATIC_ROOT']
+MEDIA_ROOT = os.environ['MEDIA_ROOT']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -165,3 +166,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
