@@ -60,14 +60,21 @@ def extract(version):
 def stage(version):
     fetch(version)
 
-    snapshot = os.path.join(env.STAGING['root'], 'backups', 'prodsnapshot.dump')
+    dbsnapshot = os.path.join(env.STAGING['root'], 'backups', 'prodsnapshot.dump')
     try:
-        os.remove(snapshot)
+        os.remove(dbsnapshot)
+    except OSError:
+        pass
+
+    mediasnapshot = os.path.join(env.STAGING['root'], 'backups', 'prodsnapshot.media.tar')
+    try:
+        os.remove(mediasnapshot)
     except OSError:
         pass
 
     with cd(env.PROD['root']):
-        manage('dbbackup --output-path %s' % (snapshot))
+        manage('dbbackup --output-path %s' % (dbsnapshot))
+        manage('mediabackup --output-path %s' % (mediasnapshot))
 
     with cd(env.STAGING['root']):
         extract(version)
@@ -75,7 +82,9 @@ def stage(version):
         manage('flush --noinput')
         manage('migrate')
         manage('collectstatic --noinput')
-        manage('dbrestore --noinput --input-path %s' % (snapshot))
+        manage('dbrestore --noinput --input-path %s' % (dbsnapshot))
+        run('rm -rf public/media/*')
+        manage('mediarestore --noinput --input-path %s' % (mediasnapshot))
         manage('test')
         manage('build')
         run('touch tmp/restart')
@@ -85,6 +94,7 @@ def stage(version):
 def prod(version):
     with cd(env.PROD['root']):
         manage('dbbackup')
+        manage('mediabackup')
         extract(version)
         virtualenv('pip install -r requirements.txt')
         manage('migrate')
