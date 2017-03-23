@@ -16,17 +16,18 @@ class Snapshot(models.Model):
         return str(self.added)
 
 
-#possible states:
-#  snapshot never done
-#  snapshot done, never published
-#  snapshot was published, never another snapshot
-#  snapshot was published, newer snapshot made
-#
-#  maybe we have snapshot
-#    number
-#    creation time
-#
-#  publication
-#    snapshot number
-#    snapshot time
-#    creation time
+class Publication(models.Model):
+    added = models.DateTimeField(auto_now_add=True)
+    snapshot_number = models.IntegerField()
+    snapshot_time = models.DateTimeField()
+
+    @classmethod
+    def create(cls, snap):
+        return cls(snapshot_number=snap.id, snapshot_time=snap.added)
+
+    def save(self, *args, **kwargs):
+        Publication.objects.exclude(id=self.id).delete()
+        super(Publication, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return 'snapshot %s' % self.snapshot_number

@@ -13,16 +13,41 @@
 </div>
 {% endif %}
 
-
-{% if snap %}
+{% if not snap %}
 <p>
-    Latest snapshot {{snap.id}} created {{snap}}.
+    No snapshots have been created yet.
+</p>
+{% elif not pub %}
+<p>
+    Latest snapshot {{snap.id}} created {{snap.added}}.
+</p>
+{% elif snap.id == pub.snapshot_number %}
+<p>
+    Latest snapshot {{snap.id}} created {{snap.added}} and published {{pub.added}}.
+</p>
+{% else %}
+<p>
+    Snapshot {{pub.snapshot_number}} was created {{pub.snapshot_time}} and published {{pub.added}}.
+</p>
+<p>
+    Latest snapshot {{snap.id}} created {{snap.added}}.
 </p>
 {% endif %}
+
 
 <form action="{% url 'snapshots:create' %}" method="post">
     {% csrf_token %}
     <button type="submit" name="submit" value="create">Create New Snapshot</button>
 </form>
+
+{% if snap %}
+{% if not pub or snap.id != pub.snapshot_number %}
+<form action="{% url 'snapshots:publish' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" id="snapshotid" name="snapshotid" value="{{snap.id}}">
+    <button type="submit" name="submit" value="publish">Publish Snapshot {{snap.id}}</button>
+</form>
+{% endif %}
+{% endif %}
 
 {% endblock %}
