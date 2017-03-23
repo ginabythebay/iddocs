@@ -9,9 +9,9 @@
 
 <p>What would you like to do?</p>
 <ul>
-    <li>Get a <a href="/court_orders/">Court Order</a></li>
-    <li>Update a <a href="/fed_docs/">federal document</a></li>
-    <li>Update my <a href="/birth_certificates/">birth certificate</a></li>
+    <li>Get a <a href="{% url 'cos:list' %}">Court Order</a></li>
+    <li>Update a <a href="{% url 'feds:list' %}">federal document</a></li>
+    <li>Update your <a href="{% url 'bcs:list' %}">birth certificate</a></li>
 </ul>
 
 {% endblock %}

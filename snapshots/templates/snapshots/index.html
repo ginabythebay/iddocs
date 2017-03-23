@@ -1,0 +1,25 @@
+{% extends "docs/base.html" %}
+
+{% block title %}ID Docs Snapshots{% endblock %}
+
+{% block content %}
+<h1>Hi Publisher!</h1>
+
+{% if messages %}
+<div>
+    {% for message in messages %}
+    {{message}}
+    {% endfor %}
+</div>
+{% endif %}
+
+<p>
+    TODO(gina) include information here about current snapshot, current published site.
+</p>
+
+<form action="{% url 'snapshots:create' %}" method="post">
+    {% csrf_token %}
+    <button type="submit" name="submit" value="create">Create New Snapshot</button>
+</form>
+
+{% endblock %}

@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'cos',
     'feds',
     'docs',
+    'snapshots',
 ]
 
 #

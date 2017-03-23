@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^birth_certificates/', include('bcs.urls')),
     url(r'^court_orders/', include('cos.urls')),
     url(r'^fed_docs/', include('feds.urls')),
+    url(r'^snapshots/', include('snapshots.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^markdownx/', include('markdownx.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
