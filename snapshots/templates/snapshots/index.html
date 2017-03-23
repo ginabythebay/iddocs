@@ -13,9 +13,12 @@
 </div>
 {% endif %}
 
+
+{% if snap %}
 <p>
-    TODO(gina) include information here about current snapshot, current published site.
+    Latest snapshot {{snap.id}} created {{snap}}.
 </p>
+{% endif %}
 
 <form action="{% url 'snapshots:create' %}" method="post">
     {% csrf_token %}
