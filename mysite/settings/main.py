@@ -67,6 +67,8 @@ BAKERY_VIEWS = (
 # end bakery config
 #
 
+MARKDOWNX_UPLOAD_CONTENT_TYPES = ['image/jpeg', 'image/png', 'image/svg+xml', 'application/pdf'] # Acceptable file content types
+
 DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
 DBBACKUP_STORAGE_OPTIONS = {
     'location': os.environ['BACKUP_ROOT']
