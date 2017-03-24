@@ -74,7 +74,7 @@ def publish(request):
 
 def _clear(dst):
     for the_file in os.listdir(dst):
-        file_path = os.path.join(folder, the_file)
+        file_path = os.path.join(dst, the_file)
         if os.path.isfile(file_path):
             os.unlink(file_path)
         elif os.path.isdir(file_path):
