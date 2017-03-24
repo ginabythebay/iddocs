@@ -69,6 +69,8 @@ BAKERY_VIEWS = (
 #
 
 PUBLISH_DIR = os.getenv("PUBLISH_DIR")
+BUILD_LINK = os.getenv('BUILD_LINK')
+PUBLISH_LINK = os.getenv('PUBLISH_LINK')
 
 
 MARKDOWNX_UPLOAD_CONTENT_TYPES = ['image/jpeg', 'image/png', 'image/svg+xml', 'application/pdf'] # Acceptable file content types

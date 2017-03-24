@@ -26,6 +26,8 @@ class IndexView(TemplateView):
         context.update({
             'snap': snap,
             'pub': pub,
+            'snap_link': settings.BUILD_LINK,
+            'pub_link': settings.PUBLISH_LINK,
             'messages': messages.get_messages(self.request),
         })
         return context

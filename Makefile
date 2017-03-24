@@ -1,6 +1,6 @@
 
 NAME := iddocs
-VERSION := v0.0.16
+VERSION := v0.0.17
 
 PYTHON=venv/bin/python
 
