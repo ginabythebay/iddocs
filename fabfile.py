@@ -80,12 +80,11 @@ def stage(version):
         extract(version)
         virtualenv('pip install -r requirements.txt')
         manage('flush --noinput')
-        manage('migrate')  # This just verifies that we can run migrate
         manage('collectstatic --noinput')
         manage('dbrestore --noinput --input-path %s' % (dbsnapshot))
         run('rm -rf public/media/*')
         manage('mediarestore --noinput --input-path %s' % (mediasnapshot))
-        manage('migrate')  # This time for real, after restoring from prod
+        manage('migrate')
         manage('test')
         manage('build')
         run('touch tmp/restart')
