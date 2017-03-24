@@ -36,18 +36,22 @@
 {% endif %}
 
 
+{% if perms.snapshots.can_publish %}
 <form action="{% url 'snapshots:create' %}" method="post">
     {% csrf_token %}
     <button type="submit" name="submit" value="create">Create New Snapshot</button>
 </form>
+{% endif %}
 
 {% if snap %}
 {% if not pub or snap.id != pub.snapshot_number %}
+{% if perms.snapshots.can_publish %}
 <form action="{% url 'snapshots:publish' %}" method="post">
     {% csrf_token %}
     <input type="hidden" id="snapshotid" name="snapshotid" value="{{snap.id}}">
     <button type="submit" name="submit" value="publish">Publish Snapshot {{snap.id}}</button>
 </form>
+{% endif %}
 {% endif %}
 {% endif %}
 

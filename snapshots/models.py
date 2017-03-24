@@ -31,3 +31,15 @@ class Publication(models.Model):
 
     def __str__(self):
         return 'snapshot %s' % self.snapshot_number
+
+    class Meta:
+        permissions = (
+            # Note: it is tempting to split snapshot into a separate
+            # permission.  In theory it would be nice to allow any
+            # author to create a snapshot to see how things look.
+            # Unfortunately there is a global snapshot and I don't
+            # want multiple users interfering with each other.  So the
+            # hack for now is to restrict creating snapshots to the few
+            # people who can publish.
+            ("can_publish", "Can create snapshots, publish them"),
+        )

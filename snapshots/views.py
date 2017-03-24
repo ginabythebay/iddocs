@@ -1,8 +1,9 @@
 import os
 import shutil
 
-from distutils.dir_util import copy_tree
+from distutils import dir_util
 
+from django.contrib.auth.decorators import permission_required
 from django.contrib import messages
 from django.conf import settings
 from django.core.management import call_command
@@ -32,7 +33,7 @@ class IndexView(TemplateView):
         })
         return context
 
-
+@permission_required('snapshots.can_publish')
 def create(request):
     if request.method != 'POST':
         messages.add_message(request, messages.ERROR, 'Only POST allowed.')
@@ -50,6 +51,7 @@ def create(request):
     return redirect('snapshots:index')
 
 
+@permission_required('snapshots.can_publish')
 def publish(request):
     if request.method != 'POST':
         messages.add_message(request, messages.ERROR, 'Only POST allowed.')
@@ -66,18 +68,34 @@ def publish(request):
         messages.add_message(request, messages.ERROR, 'Snapshot %s no longer found.  Perhaps someone created a new snapshot?' % snap_id)
         return redirect('snapshots:index')
 
-    _clear(settings.PUBLISH_DIR)
-    copy_tree(settings.BUILD_DIR, settings.PUBLISH_DIR)
+    _replace(settings.BUILD_DIR, settings.PUBLISH_DIR)
 
     Publication.create(snap).save()
     messages.add_message(request, messages.INFO, 'Snapshot Published!')
     return redirect('snapshots:index')
 
 
+def _replace(src, dst):
+    _clear(dst)
+    # workaround for copy_tree bug.  See
+    # http://stackoverflow.com/a/28055993/3075810
+    #
+    # TODO(gina) Move away from using dist_utils for this.
+    # shutil.copytree is a candidate but it requires that the
+    # destination directory not exist and I don't want to have to nuke
+    # it and recreate it.  Perhaps hand-copy the top level files and
+    # call shutil.copy_tree for each top level directory.  Kind of
+    # like _clear, below.
+    dir_util._path_created = {}
+    dir_util.copy_tree(src, dst)
+
+
 def _clear(dst):
     for the_file in os.listdir(dst):
         file_path = os.path.join(dst, the_file)
         if os.path.isfile(file_path):
+            if the_file == ".htaccess":
+                continue
             os.unlink(file_path)
         elif os.path.isdir(file_path):
             shutil.rmtree(file_path)
