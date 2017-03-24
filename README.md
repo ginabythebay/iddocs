@@ -28,6 +28,7 @@ DJANGO_DEV="TRUE"
 ALLOWED_HOSTS=""
 SECRET_KEY=$(make genkey)
 BUILD_DIR="somepath"
+BUILD_DIR="somepath"
 MYSQL_USER="someuser"
 MYSQL_PWD="somepwd"
 MYSQL_DB="somedbname"

@@ -68,6 +68,9 @@ BAKERY_VIEWS = (
 # end bakery config
 #
 
+PUBLISH_DIR = os.getenv("PUBLISH_DIR")
+
+
 MARKDOWNX_UPLOAD_CONTENT_TYPES = ['image/jpeg', 'image/png', 'image/svg+xml', 'application/pdf'] # Acceptable file content types
 
 DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'

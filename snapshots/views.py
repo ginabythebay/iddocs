@@ -1,9 +1,11 @@
 from django.contrib import messages
+from django.conf import settings
 from django.core.management import call_command
 from django.shortcuts import redirect
 from django.views.generic import TemplateView
 
 from .models import Publication, Snapshot
+from .publish import publish
 
 class IndexView(TemplateView):
     template_name = 'snapshots/index.html'
@@ -58,6 +60,7 @@ def publish(request):
         messages.add_message(request, messages.ERROR, 'Snapshot %s no longer found.  Perhaps someone created a new snapshot?' % snap_id)
         return redirect('snapshots:index')
 
+    publish(settings.BUILD_DIR, dst)
     # TODO(gina) actually copy files around
 
     Publication.create(snap).save()
