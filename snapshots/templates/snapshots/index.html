@@ -1,4 +1,5 @@
 {% extends "docs/base.html" %}
+{% load tz %}
 
 {% block title %}ID Docs Snapshots{% endblock %}
 
@@ -19,18 +20,18 @@
 </p>
 {% elif not pub %}
 <p>
-    Latest snapshot {{snap.id}} created {{snap.added}}.
+    Latest snapshot {{snap.id}} created {{snap.added|timezone:"America/Los_Angeles"}}.
 </p>
 {% elif snap.id == pub.snapshot_number %}
 <p>
-    Latest snapshot {{snap.id}} created {{snap.added}} and published {{pub.added}}.
+    Latest snapshot {{snap.id}} created {{snap.added|timezone:"America/Los_Angeles"}} and published {{pub.added|timezone:"America/Los_Angeles"}}.
 </p>
 {% else %}
 <p>
-    Snapshot {{pub.snapshot_number}} was created {{pub.snapshot_time}} and published {{pub.added}}.
+    Snapshot {{pub.snapshot_number}} was created {{pub.snapshot_time|timezone:"America/Los_Angeles"}} and published {{pub.added|timezone:"America/Los_Angeles"}}.
 </p>
 <p>
-    Latest snapshot {{snap.id}} created {{snap.added}}.
+    Latest snapshot {{snap.id}} created {{snap.added|timezone:"America/Los_Angeles"}}.
 </p>
 {% endif %}
 

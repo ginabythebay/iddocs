@@ -4,6 +4,7 @@ backups/
 .htpasswd
 
 build/
+publish/
 public/
 tmp/
 .idea/
