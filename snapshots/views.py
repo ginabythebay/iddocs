@@ -1,3 +1,8 @@
+import os
+import shutil
+
+from distutils.dir_util import copy_tree
+
 from django.contrib import messages
 from django.conf import settings
 from django.core.management import call_command
@@ -5,7 +10,6 @@ from django.shortcuts import redirect
 from django.views.generic import TemplateView
 
 from .models import Publication, Snapshot
-from .publish import publish
 
 class IndexView(TemplateView):
     template_name = 'snapshots/index.html'
@@ -60,8 +64,18 @@ def publish(request):
         messages.add_message(request, messages.ERROR, 'Snapshot %s no longer found.  Perhaps someone created a new snapshot?' % snap_id)
         return redirect('snapshots:index')
 
-    publish(settings.BUILD_DIR, settings.PUBLISH_DIR)
+    _clear(settings.PUBLISH_DIR)
+    copy_tree(settings.BUILD_DIR, settings.PUBLISH_DIR)
 
     Publication.create(snap).save()
     messages.add_message(request, messages.INFO, 'Snapshot Published!')
     return redirect('snapshots:index')
+
+
+def _clear(dst):
+    for the_file in os.listdir(dst):
+        file_path = os.path.join(folder, the_file)
+        if os.path.isfile(file_path):
+            os.unlink(file_path)
+        elif os.path.isdir(file_path):
+            shutil.rmtree(file_path)
