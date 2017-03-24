@@ -81,6 +81,14 @@ def stage(version):
         virtualenv('pip install -r requirements.txt')
         manage('flush --noinput')
         manage('collectstatic --noinput')
+
+        # We do this to ensure that any new tables are cleared out.
+        # Otherwise when we restore from prod below, we will end up
+        # not knowing migration status for tables that are sitting
+        # around from staging before the restore.
+        db = env.STAGING['db']
+        clearcmd = 'echo "drop database %s; create database %s;" | python manage.py dbshell' % (db, db)
+        virtualenv(clearcmd)
         manage('dbrestore --noinput --input-path %s' % (dbsnapshot))
         run('rm -rf public/media/*')
         manage('mediarestore --noinput --input-path %s' % (mediasnapshot))
