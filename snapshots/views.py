@@ -60,8 +60,7 @@ def publish(request):
         messages.add_message(request, messages.ERROR, 'Snapshot %s no longer found.  Perhaps someone created a new snapshot?' % snap_id)
         return redirect('snapshots:index')
 
-    publish(settings.BUILD_DIR, dst)
-    # TODO(gina) actually copy files around
+    publish(settings.BUILD_DIR, settings.PUBLISH_DIR)
 
     Publication.create(snap).save()
     messages.add_message(request, messages.INFO, 'Snapshot Published!')
