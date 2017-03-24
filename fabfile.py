@@ -95,6 +95,7 @@ def stage(version):
         manage('migrate')
         manage('test')
         manage('build')
+        run('pkill python')
         run('touch tmp/restart')
 
 
@@ -109,5 +110,6 @@ def prod(version):
         manage('collectstatic --noinput')
         manage('test')
         manage('build')
+        run('pkill python')
         run('touch tmp/restart')
 
