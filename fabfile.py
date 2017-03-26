@@ -110,6 +110,6 @@ def prod(version):
         manage('collectstatic --noinput')
         manage('test')
         manage('build')
-        run('pkill python')
+        run('pkill python || true')
         run('touch tmp/restart')
 

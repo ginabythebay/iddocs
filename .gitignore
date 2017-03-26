@@ -4,6 +4,7 @@ backups/
 .htpasswd
 
 build/
+build_tmp/
 publish/
 public/
 tmp/

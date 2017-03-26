@@ -1,10 +1,6 @@
 import os
 import shutil
 
-from distutils import dir_util
-
-import tempfile
-
 import errno
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -104,17 +100,18 @@ def _build():
 
 def _replace(src, dst):
     _clear(dst)
-    # workaround for copy_tree bug.  See
-    # http://stackoverflow.com/a/28055993/3075810
-    #
-    # TODO(gina) Move away from using dist_utils for this.
-    # shutil.copytree is a candidate but it requires that the
-    # destination directory not exist and I don't want to have to nuke
-    # it and recreate it.  Perhaps hand-copy the top level files and
-    # call shutil.copy_tree for each top level directory.  Kind of
-    # like _clear, below.
-    dir_util._path_created = {}
-    dir_util.copy_tree(src, dst)
+    _copy_tree(src, dst)
+
+
+def _copy_tree(src, dst):
+    """Like shutil.copytree, but expects that dst exists."""
+    for the_file in os.listdir(src):
+        src_file = os.path.join(src, the_file)
+        dst_file = os.path.join(dst, the_file)
+        if os.path.isfile(src_file):
+            shutil.copyfile(src_file, dst_file)
+        elif os.path.isdir(src_file):
+            shutil.copytree(src_file, dst_file)
 
 
 def _clear(dst):
