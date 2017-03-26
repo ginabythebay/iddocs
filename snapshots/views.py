@@ -2,12 +2,16 @@ import os
 import shutil
 
 import errno
+
+from django.contrib.admin.models import LogEntry, ADDITION
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.conf import settings
+from django.contrib.contenttypes.models import ContentType
 from django.core.management import call_command
 from django.shortcuts import redirect
+from django.utils.encoding import force_unicode
 from django.views.generic import TemplateView
 
 from .models import Publication, Snapshot
@@ -28,6 +32,7 @@ class IndexView(LoginRequiredMixin, TemplateView):
         pub = pub_query[0] if len(pub_query) == 1 else None
 
         context.update({
+            'has_permission': True,
             'snap': snap,
             'snap_log': snap_log,
             'pub': pub,
@@ -45,7 +50,16 @@ def create(request):
         return redirect('snapshots:index')
 
     _build()
-    Snapshot().save()
+    snap = Snapshot()
+    snap.save()
+
+    LogEntry.objects.log_action(
+        user_id=request.user.pk,
+        content_type_id=ContentType.objects.get_for_model(snap).pk,
+        object_id=snap.pk,
+        object_repr=force_unicode('snapshot %s ' % snap.pk),
+        action_flag=ADDITION
+    )
     messages.add_message(request, messages.INFO, 'Snapshot Created!')
     return redirect('snapshots:index')
 
@@ -69,7 +83,16 @@ def publish(request):
 
     _replace(settings.BUILD_DIR, settings.PUBLISH_DIR)
 
-    Publication.create(snap).save()
+    pub = Publication.create(snap)
+    pub.save()
+
+    LogEntry.objects.log_action(
+        user_id=request.user.pk,
+        content_type_id=ContentType.objects.get_for_model(pub).pk,
+        object_id=pub.pk,
+        object_repr=force_unicode('publication %s' % snap.pk),
+        action_flag=ADDITION
+    )
     messages.add_message(request, messages.INFO, 'Snapshot Published!')
     return redirect('snapshots:index')
 
