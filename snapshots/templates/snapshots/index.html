@@ -55,4 +55,11 @@
 {% endif %}
 {% endif %}
 
+{% if snap %}
+<h3>Last snapshot log:</h3>
+<pre>
+{{snap_log}}
+</pre>
+{% endif %}
+
 {% endblock %}

@@ -54,6 +54,7 @@ INSTALLED_APPS = [
 # Begin bakery config
 #
 BUILD_DIR = os.getenv("BUILD_DIR")
+BUILD_TMP_DIR = os.getenv("BUILD_TMP_DIR")
 
 BAKERY_VIEWS = (
     'bcs.views.ListView',

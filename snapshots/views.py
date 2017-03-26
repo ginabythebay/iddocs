@@ -3,6 +3,9 @@ import shutil
 
 from distutils import dir_util
 
+import tempfile
+
+import errno
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
@@ -23,11 +26,14 @@ class IndexView(LoginRequiredMixin, TemplateView):
         snap_query = Snapshot.objects.all()[:1]
         snap = snap_query[0] if len(snap_query) == 1 else None
 
+        snap_log = _read_log() if snap else None
+
         pub_query = Publication.objects.all()[:1]
         pub = pub_query[0] if len(pub_query) == 1 else None
 
         context.update({
             'snap': snap,
+            'snap_log': snap_log,
             'pub': pub,
             'snap_link': settings.BUILD_LINK,
             'pub_link': settings.PUBLISH_LINK,
@@ -72,14 +78,28 @@ def publish(request):
     return redirect('snapshots:index')
 
 
+def _read_log():
+    try:
+        with open(os.path.join(settings.BUILD_TMP_DIR, 'staging.out'),
+                  'r') as f:
+            return f.read()
+    except IOError as exc:
+        if exc.errno == errno.ENOENT:
+            return '[no log file found]'
+        else:
+            raise
+
+
 def _build():
-    # TODO(gina) capture output.  See
-    # https://github.com/datadesk/django-bakery/issues/96
-    # If no traction on the bug, some other possible solutions:
-    #   * spawn a command
-    #   * fork bakery
-    #   * embed the relevant bits of the command into my own source
-    call_command('build')
+    try:
+        os.makedirs(settings.BUILD_TMP_DIR)
+    except OSError as exc:
+        if exc.errno == errno.EEXIST and os.path.isdir(settings.BUILD_TMP_DIR):
+            pass
+        else:
+            raise
+    with open(os.path.join(settings.BUILD_TMP_DIR, 'staging.out'), 'w') as out:
+        call_command('build', '--verbosity', 2, stdout = out, stderr = out)
 
 
 def _replace(src, dst):
