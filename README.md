@@ -24,7 +24,7 @@ pip install -r requirements.txt
 ```
 cat << EOF > .env
 TEST_SQLITE3="<True_or_False>"
-DJANGO_DEV="TRUE"
+#DJANGO_DEV="True"
 ALLOWED_HOSTS=""
 SECRET_KEY=$(make genkey)
 BUILD_DIR="somepath"
