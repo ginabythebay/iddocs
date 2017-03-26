@@ -9,18 +9,28 @@ from mock.mock import patch
 from snapshots.models import Snapshot
 
 
+def _create_staff(username, **kwargs):
+    user = User.objects.create_user(username=username, password="pwd")
+    user.is_staff = True
+
+    if 'perms' in kwargs:
+        perms = kwargs['perms']
+        if isinstance(perms, (str, unicode)):
+            perms = (perms,)
+
+        for p in perms:
+            user.user_permissions.add(Permission.objects.get(codename=p))
+    user.save()
+    return user
+
+
 class SnapshotsViewPermTests(TestCase):
 
     def setUp(self):
         Snapshot().save()
 
-        User.objects.create_user(
-            username="loggedinuser", password="pwd")
-        publisher = User.objects.create_user(
-            username="publisher", password="pwd")
-        publisher.user_permissions.add(Permission.objects.get(
-            codename='can_publish'))
-        publisher.save()
+        _create_staff("loggedinuser")
+        _create_staff("publisher", perms="can_publish")
 
     def _verify_create(self, expect):
         with patch('snapshots.views._build', autospec=True) as mock_build:
@@ -44,6 +54,7 @@ class SnapshotsViewPermTests(TestCase):
         """
         r = self.client.get(reverse('snapshots:index'))
         self.assertEqual(r.status_code, 302)
+        self.assertIn("/login", r.url)
 
         self._verify_create(0)
         self._verify_publish(0)
