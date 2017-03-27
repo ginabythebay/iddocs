@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^$', admin.site.admin_view(views.IndexView.as_view()), name='index'),
     url(r'^create/$', admin.site.admin_view(views.create), name='create'),
     url(r'^publish/$', admin.site.admin_view(views.publish), name='publish'),
+    url(r'^test_auth/$', views.test_auth, name='test_auth'),
 ]

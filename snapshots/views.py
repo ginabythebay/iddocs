@@ -10,6 +10,7 @@ from django.contrib import messages
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.management import call_command
+from django.http.response import HttpResponse
 from django.shortcuts import redirect
 from django.utils.encoding import force_unicode
 from django.views.generic import TemplateView
@@ -41,6 +42,11 @@ class IndexView(LoginRequiredMixin, TemplateView):
             'messages': messages.get_messages(self.request),
         })
         return context
+
+
+def test_auth(request):
+    return HttpResponse('Hello test_auth world. HTTP_AUTH=[%s]' %
+                        request.META.get('HTTP_AUTHORIZATION', ''))
 
 
 @permission_required('snapshots.can_publish')
