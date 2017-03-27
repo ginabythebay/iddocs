@@ -45,8 +45,12 @@ class IndexView(LoginRequiredMixin, TemplateView):
 
 
 def test_auth(request):
-    return HttpResponse('Hello test_auth world. HTTP_AUTH=[%s]' %
-                        request.META.get('HTTP_AUTHORIZATION', ''))
+    return HttpResponse('Hello test_auth world. HTTP_AUTH=['
+                        '%s]<br>HTTP_REMOTE_USER=[%s]' %
+                        (
+                            request.META.get('HTTP_AUTHORIZATION', ''),
+                            request.META.get('HTTP_REMOTE_USER', ''),
+                         ))
 
 
 @permission_required('snapshots.can_publish')
