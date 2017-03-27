@@ -47,11 +47,14 @@ class IndexView(LoginRequiredMixin, TemplateView):
 def test_auth(request):
     return HttpResponse(
         'Hello test_auth world. HTTP_AUTH=[%s]'
-        ' <br>HTTP_REMOTE_USER=[%s] <br>REMOTE_USER=[%s]' %
+        ' <br>HTTP_REMOTE_USER=[%s]'
+        ' <br>REMOTE_USER=[%s]'
+        ' <br>META REMOTE_USER=[%s]' %
                         (
                             request.META.get('HTTP_AUTHORIZATION', ''),
                             request.META.get('HTTP_REMOTE_USER', ''),
                             os.getenv('REMOTE_USER', ''),
+                            request.META.get('REMOTE_USER', '')
                          ))
 
 
