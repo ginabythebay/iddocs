@@ -11,11 +11,7 @@ sys.path.append(cwd)
 sys.path.insert(0,cwd+'/venv/bin')
 sys.path.insert(0,cwd+'/venv/lib/python2.7/site-packages/django')
 sys.path.insert(0,cwd+'/venv/lib/python2.7/site-packages')
-  
-import dotenv
 
-dotenv.read_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env'))
- 
 from django.core.wsgi import get_wsgi_application
 
 import django

@@ -13,6 +13,25 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 import sys
 
+from env import (
+    ALLOWED_HOSTS,
+    BACKUP_ROOT,
+    BUILD_DIR,
+    BUILD_LINK ,
+    BUILD_TMP_DIR,
+    DJANGO_DEV,
+    MEDIA_ROOT,
+    MYSQL_DB,
+    MYSQL_HOST,
+    MYSQL_PWD,
+    MYSQL_USER,
+    PUBLISH_DIR,
+    PUBLISH_LINK ,
+    SECRET_KEY,
+    STATIC_ROOT,
+    TEST_SQLITE3,
+)
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -26,9 +45,6 @@ sys.path.insert(0, BASE_BASE)
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = True
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split()
-
-SECRET_KEY = os.getenv("SECRET_KEY")
 
 # Application definition
 
@@ -53,8 +69,6 @@ INSTALLED_APPS = [
 #
 # Begin bakery config
 #
-BUILD_DIR = os.getenv("BUILD_DIR")
-BUILD_TMP_DIR = os.getenv("BUILD_TMP_DIR")
 
 BAKERY_VIEWS = (
     'bcs.views.ListView',
@@ -68,10 +82,6 @@ BAKERY_VIEWS = (
 #
 # end bakery config
 #
-
-PUBLISH_DIR = os.getenv("PUBLISH_DIR")
-BUILD_LINK = os.getenv('BUILD_LINK')
-PUBLISH_LINK = os.getenv('PUBLISH_LINK')
 
 
 MARKDOWNX_UPLOAD_CONTENT_TYPES = ['image/jpeg', 'image/png', 'image/svg+xml', 'application/pdf'] # Acceptable file content types
@@ -120,10 +130,10 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv("MYSQL_DB"),
-        'USER': os.getenv("MYSQL_USER"),
-        'PASSWORD': os.getenv("MYSQL_PWD"),
-        'HOST': os.getenv("MYSQL_HOST"),
+        'NAME': MYSQL_DB,
+        'USER': MYSQL_USER,
+        'PASSWORD': MYSQL_PWD,
+        'HOST': MYSQL_HOST,
         'OPTIONS': {
             'read_default_file': os.path.join(BASE_DIR, 'my.conf'),
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
