@@ -95,7 +95,7 @@ def stage(version):
         manage('migrate')
         manage('test')
         manage('build')
-        run('pkill python')
+        run('pkill python || true')
         run('touch tmp/restart')
 
 
