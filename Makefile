@@ -1,27 +1,27 @@
 
 NAME := iddocs
-VERSION := v0.0.27
+VERSION := v0.0.28
 
-PYTHON=venv/bin/python
+# PYTHON=venv/bin/python
 
-.PHONY: createsuperuser freeze genkey makemigrations migrate serve shell test dist release stage prod
+# .PHONY: createsuperuser freeze genkey makemigrations migrate serve shell test dist release stage prod
 
-createsuperuser: venv
-	$(PYTHON) manage.py createsuperuser
+# createsuperuser: venv
+# 	$(PYTHON) manage.py createsuperuser
 
-freeze: venv
-	pip freeze > requirements.txt
+# freeze: venv
+# 	pip freeze > requirements.txt
 
-genkey: venv
-	@$(PYTHON) -c "import string,random; uni=string.ascii_letters+string.digits+string.punctuation; print repr(''.join([random.SystemRandom().choice(uni) for i in range(random.randint(45,50))]))"
+# genkey: venv
+# 	@$(PYTHON) -c "import string,random; uni=string.ascii_letters+string.digits+string.punctuation; print repr(''.join([random.SystemRandom().choice(uni) for i in range(random.randint(45,50))]))"
 
-makemigrations: venv
-	$(PYTHON) manage.py makemigrations
+# makemigrations: venv
+# 	$(PYTHON) manage.py makemigrations
 
-migrate: venv
-	$(PYTHON) manage.py migrate
+# migrate: venv
+# 	$(PYTHON) manage.py migrate
 
-serve: venv
+# serve: venv
 	$(PYTHON) manage.py runserver
 
 shell: venv
