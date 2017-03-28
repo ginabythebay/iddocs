@@ -20,6 +20,10 @@ from env import (
     BUILD_DIR,
     BUILD_LINK ,
     BUILD_TMP_DIR,
+    DEFAULT_FROM_EMAIL,
+    EMAIL_BACKEND,
+    MAILGUN_ACCESS_KEY,
+    MAILGUN_SERVER_NAME,
     MEDIA_ROOT,
     MYSQL_DB,
     MYSQL_HOST,
@@ -28,6 +32,7 @@ from env import (
     PUBLISH_DIR,
     PUBLISH_LINK ,
     SECRET_KEY,
+    SERVER_EMAIL,
     STATIC_ROOT,
     TEST_SQLITE3,
 )
