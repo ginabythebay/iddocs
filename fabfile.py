@@ -8,9 +8,9 @@ from fabric.decorators import hosts
 from fabric.utils import abort
 
 try:
-    import env
+    import fabenv
 except ImportError:
-    abort('''Missing env.py.
+    abort('''Missing fabenv.py.
 Create env.py with content like:
 
 HOST = 'user@host'
