@@ -13,25 +13,6 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 import sys
 
-from env import (
-    ALLOWED_HOSTS,
-    BACKUP_ROOT,
-    BUILD_DIR,
-    BUILD_LINK ,
-    BUILD_TMP_DIR,
-    DJANGO_DEV,
-    MEDIA_ROOT,
-    MYSQL_DB,
-    MYSQL_HOST,
-    MYSQL_PWD,
-    MYSQL_USER,
-    PUBLISH_DIR,
-    PUBLISH_LINK ,
-    SECRET_KEY,
-    STATIC_ROOT,
-    TEST_SQLITE3,
-)
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 

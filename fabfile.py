@@ -27,14 +27,14 @@ ACTIVATE = 'source ./venv/bin/activate'
 ''')
 
 def virtualenv(command):
-    run(env.ACTIVATE + '&&' + command)
+    run(fabenv.ACTIVATE + '&&' + command)
 
 
 def manage(subcommand):
     cmd = 'python manage.py ' + subcommand
     virtualenv(cmd)
 
-@hosts(env.HOST)
+@hosts(fabenv.HOST)
 def get_artifact(version, name):
     run('mkdir -p ~/releases/%s' % version)
     with cd('~/releases/%s' % version):
@@ -42,7 +42,7 @@ def get_artifact(version, name):
         run('wget "https://github.com/ginabythebay/iddocs/releases/download/%s/%s"' % (version, name))
 
 
-@hosts(env.HOST)
+@hosts(fabenv.HOST)
 def fetch(version):
     get_artifact(version, 'source.tar.bz2')
     get_artifact(version, 'source.sha512')
@@ -56,27 +56,27 @@ def extract(version):
     run('tar xfj ~/releases/%s/source.tar.bz2' % version)
 
 
-@hosts(env.HOST)
+@hosts(fabenv.HOST)
 def stage(version):
     fetch(version)
 
-    dbsnapshot = os.path.join(env.STAGING['root'], 'backups', 'prodsnapshot.dump')
+    dbsnapshot = os.path.join(fabenv.STAGING['root'], 'backups', 'prodsnapshot.dump')
     try:
         os.remove(dbsnapshot)
     except OSError:
         pass
 
-    mediasnapshot = os.path.join(env.STAGING['root'], 'backups', 'prodsnapshot.media.tar')
+    mediasnapshot = os.path.join(fabenv.STAGING['root'], 'backups', 'prodsnapshot.media.tar')
     try:
         os.remove(mediasnapshot)
     except OSError:
         pass
 
-    with cd(env.PROD['root']):
+    with cd(fabenv.PROD['root']):
         manage('dbbackup --output-path %s' % (dbsnapshot))
         manage('mediabackup --output-path %s' % (mediasnapshot))
 
-    with cd(env.STAGING['root']):
+    with cd(fabenv.STAGING['root']):
         extract(version)
         virtualenv('pip install -r requirements.txt')
         manage('flush --noinput')
@@ -86,7 +86,7 @@ def stage(version):
         # Otherwise when we restore from prod below, we will end up
         # not knowing migration status for tables that are sitting
         # around from staging before the restore.
-        db = env.STAGING['db']
+        db = fabenv.STAGING['db']
         clearcmd = 'echo "drop database %s; create database %s;" | python manage.py dbshell' % (db, db)
         virtualenv(clearcmd)
         manage('dbrestore --noinput --input-path %s' % (dbsnapshot))
@@ -99,9 +99,9 @@ def stage(version):
         run('touch tmp/restart')
 
 
-@hosts(env.HOST)
+@hosts(fabenv.HOST)
 def prod(version):
-    with cd(env.PROD['root']):
+    with cd(fabenv.PROD['root']):
         manage('dbbackup')
         manage('mediabackup')
         extract(version)
