@@ -88,11 +88,8 @@ MARKDOWNX_UPLOAD_CONTENT_TYPES = ['image/jpeg', 'image/png', 'image/svg+xml', 'a
 
 DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
 DBBACKUP_STORAGE_OPTIONS = {
-    'location': os.environ['BACKUP_ROOT']
+    'location': BACKUP_ROOT
 }
-
-STATIC_ROOT = os.environ['STATIC_ROOT']
-MEDIA_ROOT = os.environ['MEDIA_ROOT']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -140,8 +137,8 @@ DATABASES = {
         },
     }
 }
-test_sqlite3 = os.environ.get('TEST_SQLITE3', False)
-if 'test' in sys.argv and test_sqlite3:
+
+if 'test' in sys.argv and TEST_SQLITE3:
     DATABASES['default'] = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'testdb'

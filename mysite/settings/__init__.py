@@ -1,10 +1,8 @@
 import os
 
-dev = os.environ.get('DJANGO_DEV', False)
-
 from main import *
 
-if dev:
+if DJANGO_DEV:
     from dev import *
 else:
     from live import *
