@@ -31,7 +31,7 @@ shell: venv
 test: venv
 	$(PYTHON) manage.py test
 
-dist: venv test
+dist: test venv
 	@rm -rf dist && mkdir dist
 	git archive master | bzip2 >dist/source.tar.bz2
 	(cd $(shell pwd)/dist && shasum -a 512 source.tar.bz2 > source.sha512);
