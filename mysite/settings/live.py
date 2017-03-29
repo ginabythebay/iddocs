@@ -1,4 +1,6 @@
 import os
 
+from django.conf import settings
 
-MIDDLEWARE.append('middleware.SecureOnly')
+
+settings.MIDDLEWARE.append('middleware.SecureOnly')
