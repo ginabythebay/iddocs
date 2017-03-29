@@ -6,8 +6,6 @@ from env import (
 )
 
 
-from main import *
-
 if DJANGO_DEV:
     from dev import *
 else:

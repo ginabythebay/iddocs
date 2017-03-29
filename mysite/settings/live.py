@@ -2,5 +2,7 @@ import os
 
 from django.conf import settings
 
+from main import *
 
-settings.MIDDLEWARE.append('middleware.SecureOnly')
+
+MIDDLEWARE.append('middleware.SecureOnly')
