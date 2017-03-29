@@ -1,12 +1,11 @@
 
 from django.contrib.auth.models import Permission, User
 
-from django.test import TestCase
-
 from django.urls import reverse
 from mock.mock import patch
 
 from snapshots.models import Snapshot
+from test_helpers import SecureTestCase
 
 
 def _create_staff(username, **kwargs):
@@ -24,7 +23,7 @@ def _create_staff(username, **kwargs):
     return user
 
 
-class SnapshotsViewPermTests(TestCase):
+class SnapshotsViewPermTests(SecureTestCase):
 
     def setUp(self):
         Snapshot().save()
@@ -34,7 +33,7 @@ class SnapshotsViewPermTests(TestCase):
 
     def _verify_create(self, expect):
         with patch('snapshots.views._build', autospec=True) as mock_build:
-            r = self.client.post(reverse('snapshots:create'))
+            r = self.secure_post(reverse('snapshots:create'))
             self.assertEqual(r.status_code, 302)
         self.assertEqual(mock_build.call_count, expect)
 
@@ -42,7 +41,7 @@ class SnapshotsViewPermTests(TestCase):
         snap_query = Snapshot.objects.all()[:1]
         snap = snap_query[0]
         with patch('snapshots.views._replace', autospec=True) as mock_replace:
-            r = self.client.post(reverse('snapshots:publish'),
+            r = self.secure_post(reverse('snapshots:publish'),
                                  {'snapshotid': str(snap.id)})
             self.assertEqual(r.status_code, 302)
         self.assertEqual(mock_replace.call_count, expect)
@@ -52,7 +51,7 @@ class SnapshotsViewPermTests(TestCase):
         Verifies that a non-logged in user cannot see snapshot info and that
         she cannot create snapshots or publish them.
         """
-        r = self.client.get(reverse('snapshots:index'))
+        r = self.secure_get(reverse('snapshots:index'))
         self.assertEqual(r.status_code, 302)
         self.assertIn("/login", r.url)
 
@@ -65,7 +64,7 @@ class SnapshotsViewPermTests(TestCase):
         form buttons and that she cannot create snapshots or publish them.
         """
         self.client.login(username='loggedinuser', password='pwd')
-        r = self.client.get(reverse('snapshots:index'))
+        r = self.secure_get(reverse('snapshots:index'))
         self.assertContains(r, "Latest snapshot")
         self.assertNotContains(r, "form")
 
@@ -78,7 +77,7 @@ class SnapshotsViewPermTests(TestCase):
         form buttons and that she can create snapshots and publish them.
         """
         self.client.login(username='publisher', password='pwd')
-        r = self.client.get(reverse('snapshots:index'))
+        r = self.secure_get(reverse('snapshots:index'))
         self.assertContains(r, "Latest snapshot")
         self.assertContains(r, "form", count=4)  # 2 begin forms and 2 end forms
 

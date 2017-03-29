@@ -1,10 +1,10 @@
-from django.test import TestCase
-
 from django.urls import reverse
 
 from locations.models import Location
 
 from bcs.models import BirthCertificate
+from test_helpers import SecureTestCase
+
 
 def create_location(abbrev, name):
     return Location.objects.create(abbrev=abbrev, name=name)
@@ -15,7 +15,7 @@ def create_bc(location):
     return BirthCertificate.objects.create(location=location, article=text)
 
 
-class BirthCertificateListViewTests(TestCase):
+class BirthCertificateListViewTests(SecureTestCase):
     def test_scenario(self):
         """
         Creates 3 locations with entries for two birth certificates
@@ -28,7 +28,7 @@ class BirthCertificateListViewTests(TestCase):
         create_bc(ak)
         create_bc(az)
 
-        response = self.client.get(reverse('bcs:list'))
+        response = self.secure_get(reverse('bcs:list'))
         self.assertQuerysetEqual(
             response.context['list'],
             ['<BirthCertificate: Alaska>', '<BirthCertificate: Arizona>']
