@@ -10,4 +10,5 @@ MIDDLEWARE.append('apache_auth.middleware.HttpAuthMiddleware')
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.RemoteUserBackend',
+    'django.contrib.auth.backends.ModelBackend',
 ]
