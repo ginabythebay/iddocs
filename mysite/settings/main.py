@@ -31,11 +31,12 @@ from env import (
     MYSQL_PWD,
     MYSQL_USER,
     PUBLISH_DIR,
-    PUBLISH_LINK ,
+    PUBLISH_LINK,
     SECRET_KEY,
     SERVER_EMAIL,
     STATIC_ROOT,
     TEST_SQLITE3,
+    HTPASSWD_PATH,
 )
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -64,6 +65,7 @@ INSTALLED_APPS = [
     'markdownx',
     'dbbackup',
     'bakery',
+    'apache_auth',
     'locations',
     'bcs',
     'cos',
@@ -167,6 +169,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+    {
+        'NAME': 'apache_auth.middleware.PasswordChangeMonitor',
+    },
 ]
 
 
@@ -191,7 +196,8 @@ LOGGING = {
             'level': 'INFO',
             'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
-            'formatter': 'simple'
+            'formatter': 'simple',
+            'stream': sys.stdout
         },
         'mail_admins': {
             'level': 'ERROR',

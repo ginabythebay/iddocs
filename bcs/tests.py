@@ -3,7 +3,7 @@ from django.urls import reverse
 from locations.models import Location
 
 from bcs.models import BirthCertificate
-from test_helpers import SecureTestCase
+from test_helpers import BaseTestCase
 
 
 def create_location(abbrev, name):
@@ -15,7 +15,7 @@ def create_bc(location):
     return BirthCertificate.objects.create(location=location, article=text)
 
 
-class BirthCertificateListViewTests(SecureTestCase):
+class BirthCertificateListViewTests(BaseTestCase):
     def test_scenario(self):
         """
         Creates 3 locations with entries for two birth certificates

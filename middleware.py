@@ -1,5 +1,5 @@
+from django.core.exceptions import SuspiciousOperation, ValidationError
 
-from django.core.exceptions import SuspiciousOperation
 
 class SecureOnly(object):
     def __init__(self, get_response):

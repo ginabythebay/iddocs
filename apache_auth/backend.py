@@ -1,0 +1,6 @@
+
+
+class HttpAuthBackend(object):
+    """
+    Authenticates 
+    """

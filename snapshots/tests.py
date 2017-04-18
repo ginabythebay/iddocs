@@ -1,35 +1,17 @@
-
-from django.contrib.auth.models import Permission, User
-
 from django.urls import reverse
 from mock.mock import patch
 
 from snapshots.models import Snapshot
-from test_helpers import SecureTestCase
+from test_helpers import BaseTestCase
+from test_helpers import create_staff
 
 
-def _create_staff(username, **kwargs):
-    user = User.objects.create_user(username=username, password="pwd")
-    user.is_staff = True
-
-    if 'perms' in kwargs:
-        perms = kwargs['perms']
-        if isinstance(perms, (str, unicode)):
-            perms = (perms,)
-
-        for p in perms:
-            user.user_permissions.add(Permission.objects.get(codename=p))
-    user.save()
-    return user
-
-
-class SnapshotsViewPermTests(SecureTestCase):
+class SnapshotsViewPermTests(BaseTestCase):
 
     def setUp(self):
         Snapshot().save()
-
-        _create_staff("loggedinuser")
-        _create_staff("publisher", perms="can_publish")
+        create_staff('loggedinuser', 'pwd')
+        create_staff('publisher', 'pwd', perms='can_publish')
 
     def _verify_create(self, expect):
         with patch('snapshots.views._build', autospec=True) as mock_build:
@@ -63,7 +45,7 @@ class SnapshotsViewPermTests(SecureTestCase):
         Verifies that a logged in user can see snapshot info, but no
         form buttons and that she cannot create snapshots or publish them.
         """
-        self.client.login(username='loggedinuser', password='pwd')
+        self.login('loggedinuser', 'pwd')
         r = self.secure_get(reverse('snapshots:index'))
         self.assertContains(r, "Latest snapshot")
         self.assertNotContains(r, "form")
@@ -76,7 +58,7 @@ class SnapshotsViewPermTests(SecureTestCase):
         Verifies that a publisher can see snapshot info, and
         form buttons and that she can create snapshots and publish them.
         """
-        self.client.login(username='publisher', password='pwd')
+        self.login('publisher', 'pwd')
         r = self.secure_get(reverse('snapshots:index'))
         self.assertContains(r, "Latest snapshot")
         self.assertContains(r, "form", count=4)  # 2 begin forms and 2 end forms
