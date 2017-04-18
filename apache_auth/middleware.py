@@ -77,7 +77,7 @@ class HttpAuthMiddleware(object):
 
     def __call__(self, request):
         header = request.META.get('HTTP_AUTHORIZATION', '')
-        if not credentials:
+        if not header:
             if request.user.is_authenticated:
                 auth.logout(request)
             logger.error('Request with no HTTP_AUTHORIZATION header', extra={'request': request})
@@ -90,7 +90,7 @@ class HttpAuthMiddleware(object):
             logger.error('Request with invalid HTTP_AUTHORIZATION (expected 2 tokens)', extra={'request': request})
             return self.get_response(request)
 
-        basic, credential = tokens
+        basic, credentials = tokens
         if basic.lower() != 'basic':
             if request.user.is_authenticated:
                 auth.logout(request)

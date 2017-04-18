@@ -42,7 +42,7 @@ class BaseTestCase(TestCase):
     def _environ(self):
         cred = None
         if hasattr(self, 'credentials') and self.credentials:
-            cred = self.credentials
+            cred = 'Basic %s' % self.credentials
         username = None
         if hasattr(self, 'username'):
             username = self.username
