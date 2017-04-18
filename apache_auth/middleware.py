@@ -76,18 +76,34 @@ class HttpAuthMiddleware(object):
         # One-time configuration and initialization.
 
     def __call__(self, request):
-        credentials = request.META.get('HTTP_AUTHORIZATION', '')
+        header = request.META.get('HTTP_AUTHORIZATION', '')
         if not credentials:
             if request.user.is_authenticated:
                 auth.logout(request)
             logger.error('Request with no HTTP_AUTHORIZATION header', extra={'request': request})
             return self.get_response(request)
+
+        tokens = header.split(' ', 1)
+        if len(tokens) != 2:
+            if request.user.is_authenticated:
+                auth.logout(request)
+            logger.error('Request with invalid HTTP_AUTHORIZATION (expected 2 tokens)', extra={'request': request})
+            return self.get_response(request)
+
+        basic, credential = tokens
+        if basic.lower() != 'basic':
+            if request.user.is_authenticated:
+                auth.logout(request)
+            logger.error('unexpected authorization type [%s] in HTTP_AUTHORIZATION' % basic, extra={'request': request})
+            return self.get_response(request)
+
         values = base64.b64decode(credentials).split(':')
         if len(values) != 2:
             if request.user.is_authenticated:
                 auth.logout(request)
             logger.error('Request with invalid HTTP_AUTHORIZATION header', extra={'request': request})
             return self.get_response(request)
+
         user = auth.authenticate(username=values[0], password=values[1])
         if user is None:
             if request.user.is_authenticated:
