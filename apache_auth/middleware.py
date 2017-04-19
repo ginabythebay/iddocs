@@ -15,7 +15,8 @@ from .models import EncryptedPwd
 logger = logging.getLogger('django.security')
 
 
-def _rewrite_htpasswd():
+def rewrite_htpasswd():
+    written_users = []
     users = User.objects.all()
     with open(settings.HTPASSWD_PATH, 'a'):
         pass
@@ -25,6 +26,8 @@ def _rewrite_htpasswd():
             if hasattr(u, 'encryptedpwd'):
                 enc = u.encryptedpwd
                 userdb.new_users[u.username] = enc.pwd
+                written_users.append(u.username)
+    return written_users
 
 
 def _hash(pwd):
@@ -48,7 +51,7 @@ class PasswordChangeMonitor(object):
         else:
             entry = EncryptedPwd.objects.create(user=user, pwd=hash)
 
-        _rewrite_htpasswd()
+        rewrite_htpasswd()
 
     def validate(self, password, user=None):
         pass
@@ -59,7 +62,7 @@ class PasswordChangeMonitor(object):
 
 @receiver(post_delete, sender=User)
 def user_deleted(sender, instance, **kwargs):
-    _rewrite_htpasswd()
+    rewrite_htpasswd()
 
 
 class HttpAuthMiddleware(object):
