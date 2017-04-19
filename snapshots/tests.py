@@ -9,6 +9,7 @@ from test_helpers import create_staff
 class SnapshotsViewPermTests(BaseTestCase):
 
     def setUp(self):
+        super(SnapshotsViewPermTests, self).setUp()
         Snapshot().save()
         create_staff('loggedinuser', 'pwd')
         create_staff('publisher', 'pwd', perms='can_publish')

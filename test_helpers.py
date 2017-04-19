@@ -36,15 +36,15 @@ class BaseTestCase(TestCase):
 
     def setUp(self):
         super(BaseTestCase, self).setUp()
-        self.credentials = None
-        self.username = None
+        self.credentials = ''
+        self.username = ''
 
     def _environ(self):
         cred = None
-        if hasattr(self, 'credentials') and self.credentials:
+        if self.credentials:
             cred = 'Basic %s' % self.credentials
         username = None
-        if hasattr(self, 'username'):
+        if self.username:
             username = self.username
         return {
             'wsgi.url_scheme': 'https',
