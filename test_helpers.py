@@ -1,4 +1,9 @@
 import base64
+import os.path
+import shutil
+import tempfile
+
+from django.conf import settings
 
 from django.contrib.auth.models import Permission
 from django.contrib.auth.models import User
@@ -36,8 +41,17 @@ class BaseTestCase(TestCase):
 
     def setUp(self):
         super(BaseTestCase, self).setUp()
+        self.old_htpasswd_path = settings.HTPASSWD_PATH
+        self.temp_dir = tempfile.mkdtemp()
+        settings.HTPASSWD_PATH = os.path.join(self.temp_dir, 'htpasswd')
+
         self.credentials = ''
         self.username = ''
+
+    def tearDown(self):
+        super(BaseTestCase, self).tearDown()
+        settings.HTPASSWD_PATH = self.old_htpasswd_path
+        shutil.rmtree(self.temp_dir, ignore_errors=True)
 
     def _environ(self):
         cred = None

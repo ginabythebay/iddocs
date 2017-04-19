@@ -1,7 +1,4 @@
-import os.path
-import shutil
 import subprocess
-import tempfile
 try:
     from collections import OrderedDict
 except ImportError:
@@ -41,26 +38,20 @@ class HttpPasswdTests(BaseTestCase):
                 self.assertEqual(hash, _recrypt(alg, salt, pwd))
 
     def test_scenario(self):
+        create_staff('foo', 'foo')
+        self._verify([('foo', 'foo')])
 
-        dir = tempfile.mkdtemp()
-        settings.HTPASSWD_PATH = os.path.join(dir, 'htpasswd')
-        try:
-            create_staff('foo', 'foo')
-            self._verify([('foo', 'foo')])
+        bar = create_staff('bar', 'bar')
+        self._verify([('foo', 'foo'), ('bar', 'bar')])
 
-            bar = create_staff('bar', 'bar')
-            self._verify([('foo', 'foo'), ('bar', 'bar')])
+        baz = create_staff('baz', 'baz')
+        self._verify([('foo', 'foo'), ('bar', 'bar'), ('baz', 'baz')])
 
-            baz = create_staff('baz', 'baz')
-            self._verify([('foo', 'foo'), ('bar', 'bar'), ('baz', 'baz')])
+        bar.delete()
+        self._verify([('foo', 'foo'), ('baz', 'baz')])
 
-            bar.delete()
-            self._verify([('foo', 'foo'), ('baz', 'baz')])
+        baz.set_password('not_baz')
+        baz.save()
 
-            baz.set_password('not_baz')
-            baz.save()
-
-            self._verify([('foo', 'foo'), ('baz', 'not_baz')])
-        finally:
-            shutil.rmtree(dir, ignore_errors=True)
+        self._verify([('foo', 'foo'), ('baz', 'not_baz')])
 
