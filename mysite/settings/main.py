@@ -23,6 +23,7 @@ from env import (
     BUILD_TMP_DIR,
     DEFAULT_FROM_EMAIL,
     EMAIL_BACKEND,
+    LOG_FILENAME,
     MAILGUN_ACCESS_KEY,
     MAILGUN_SERVER_NAME,
     MEDIA_ROOT,
@@ -192,6 +193,15 @@ LOGGING = {
         },
     },
     'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': LOG_FILENAME,
+            'when': 'midnight',
+            'interval': 1,
+            'backupCount': 10,
+            'formatter': 'verbose',
+        },
         'console': {
             'level': 'INFO',
             'filters': ['require_debug_true'],
@@ -206,21 +216,19 @@ LOGGING = {
         }
     },
     'loggers': {
+        # These two entries just override the default that django provides
         'django': {
-            'handlers': ['console'],
             'propagate': True,
         },
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': False,
+        'django.server': {
+            'propagate': True,
         },
-        'django.security': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': False,
-        },
-    }
+    },
+    'root': {
+        'handlers': ['file', 'mail_admins'],
+        'level': 'DEBUG',
+    },
+
 }
 
 # Internationalization

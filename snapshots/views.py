@@ -45,9 +45,6 @@ class IndexView(LoginRequiredMixin, TemplateView):
 
 
 def test_auth(request):
-    import logging
-    logger = logging.getLogger('django.request')
-    logger.error('hi', extra={'request': request})
     return HttpResponse(
         'Hello test_auth world. HTTP_AUTH=[%s]'
         ' <br>HTTP_REMOTE_USER=[%s]'
