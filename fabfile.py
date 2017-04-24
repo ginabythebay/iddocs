@@ -95,6 +95,7 @@ def stage(version):
         manage('migrate')
         manage('test')
         manage('build')
+        manage('rewrite_htpasswd')
         run('pkill python || true')
         run('touch tmp/restart')
 
